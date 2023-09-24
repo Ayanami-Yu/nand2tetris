@@ -11,4 +11,64 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-// Put your code here.
+	@SCREEN
+	D = A
+	@scr
+	M = D
+
+	@KBD
+	D = A
+	@kb
+	M = D	
+
+	@8192
+	D = A
+	@size
+	M = D
+
+(LOOP)
+    @i
+    M = 0
+	@kb
+	A = M
+	D = M
+	@WHITE
+	D ; JEQ    // clear the screen if RAM[kb] == 0
+
+(BLACK)
+	@i
+	D = M
+	@size
+	D = D - M
+	@LOOP
+	D ; JGE
+
+	@i
+	D = M
+	@scr
+	A = D + M
+	M = -1
+
+	@i
+	M = M + 1
+	@BLACK
+	0 ; JMP
+
+(WHITE)
+	@i
+	D = M
+	@size
+	D = D - M
+	@LOOP
+	D ; JGE
+
+	@i
+	D = M
+	@scr
+	A = D + M
+	M = 0
+
+	@i
+	M = M + 1
+	@WHITE
+	0 ; JMP
